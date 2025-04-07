@@ -1,0 +1,39 @@
+.transfersNumber {
+    display: flex;
+    flex-direction: column;
+    max-width: 232px;
+    max-height: 252px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.transfersNumber-title {
+    display: flex;
+    font-size: 14px;
+    width: 192px;
+    height: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.transfersNumberList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media all and (max-width: 768px) {
+    .transfersNumber {
+        max-width: 90%;
+        width: 100%;
+    }
+    
+    .transfersNumberList {
+        flex-direction: row;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+}

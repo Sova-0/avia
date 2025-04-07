@@ -1,0 +1,92 @@
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    width: 502px;
+    height: 184px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+}
+
+.ticket-list-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.ticket-list-header-price {
+    font-size: 24px;
+    color: #2196F3;
+    font-weight: 600;
+}
+
+.ticket-list-ToFrom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.ticket-list-to {
+    display: flex;
+    width: 100%;
+    height: 39px;
+    gap: 20px;
+}
+
+.ticket-list-cities,
+.ticket-list-way,
+.ticket-list-transfer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 141px;
+    width: 100%;
+}
+
+.ticket-list-from {
+    display: flex;
+    width: 100%;
+    height: 39px;
+    gap: 20px;
+}
+
+.ticket-list-cities-name,
+.ticket-list-way-name,
+.ticket-list-transfer-count {
+    color: #A0B0B9;
+    font-size: 12px;
+}
+
+.ticket-list-cities-time,
+.ticket-list-way-time,
+.ticket-list-transfer-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@media all and (max-width: 768px) {
+    .tickets-list {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 530px) {
+    .ticket-list {
+        max-width: 100%;
+        width: 100%;
+        padding: 5px;
+        align-items: center;
+    }
+
+    .ticket-list-ToFrom {
+        width: 100%;
+    }
+
+    .ticket-list-to,
+    .ticket-list-from {
+        justify-content: space-around;
+    }
+}

@@ -1,0 +1,26 @@
+.tickets-button {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.button-cheap,
+.button-fast,
+.button-optimal {
+    width: 168px;
+    color: #4A4A4A;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #FFFFFF;
+    border: 1px solid #DFE5EC;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+    height: 50px;
+}
+
+@media all and (max-width: 768px) {
+    .tickets-button {
+        width: 100%;
+        justify-content: space-around;
+    }
+}

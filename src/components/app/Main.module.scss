@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+@media all and (max-width: 768px) {
+    .main {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
