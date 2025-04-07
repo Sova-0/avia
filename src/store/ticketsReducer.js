@@ -1,3 +1,5 @@
+import { debounce } from 'lodash';
+
 const initialState = {
   sortType: 'САМЫЙ ДЕШЕВЫЙ',
   transfers: {
@@ -139,23 +141,30 @@ const sortTicketsButton = (tickets, sortType) => {
 };
 
 // ДЕЛАЮ СОРТИРОВКУ СНАЧАЛА ПО CHECKBOX А ПОТОМ ПО КНОПКАМ
+let debouncedFn = null;
 const setFiltredTickets = () => async (dispatch, getState) => {
   dispatch({
     type: 'SET_LOADING',
     payload: true,
   });
-  const { tickets, transfers, sortType } = getState().tickets;
-  const filtered = filteredTransfers(tickets, transfers);
-  const sorted = sortTicketsButton(filtered, sortType);
+  if (!debouncedFn) {
+    debouncedFn = debounce((dispatch, getState) => {
+      const { tickets, transfers, sortType } = getState().tickets;
+      const filtered = filteredTransfers(tickets, transfers);
+      const sorted = sortTicketsButton(filtered, sortType);
 
-  dispatch({
-    type: 'SET_FILTERED_TICKETS',
-    payload: sorted,
-  });
-  dispatch({
-    type: 'SET_LOADING',
-    payload: false,
-  });
+      dispatch({
+        type: 'SET_FILTERED_TICKETS',
+        payload: sorted,
+      });
+
+      dispatch({
+        type: 'SET_LOADING',
+        payload: false,
+      });
+    }, 500);
+  }
+  debouncedFn(dispatch, getState);
 };
 
 // ПЕРЕКЛЮЧЕНИЕ КНОПОК САМЫЙ БЫСТРЫЙ, ДЕШЁВЫЙ, ОПТИМАЛЬНЫЙ
