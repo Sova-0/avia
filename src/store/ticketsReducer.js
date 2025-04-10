@@ -1,11 +1,11 @@
 const initialState = {
   sortType: 'САМЫЙ ДЕШЕВЫЙ',
   transfers: {
-    all: false,
-    'no-transfers': false,
-    'one-transfers': false,
-    'two-transfers': false,
-    'three-transfers': false,
+    all: true,
+    'no-transfers': true,
+    'one-transfers': true,
+    'two-transfers': true,
+    'three-transfers': true,
   },
   tickets: [],
   filteredTickets: [],
@@ -130,7 +130,6 @@ const fetchTickets = () => async (dispatch, getState) => {
       continue;
     }
   }
-  dispatch(setAllTransfersTrue());
 };
 
 // ДЕЛАЮ СОРТИРОВКУ ПО КНОПКАМ
