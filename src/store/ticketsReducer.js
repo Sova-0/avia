@@ -103,7 +103,6 @@ const fetchSearchId = () => async (dispatch) => {
 // ЗАПРОС НА ПОЛУЧЕНИЕ БИЛЕТОВ И отправка в РЕДУКТОР
 const fetchTickets = () => async (dispatch, getState) => {
   const searchId = getState().tickets.searchId;
-  let allTickets = [];
   let stop = false;
   while (!stop) {
     try {
@@ -116,23 +115,22 @@ const fetchTickets = () => async (dispatch, getState) => {
         throw new Error(`HTTP error, status: ${result.status}`);
       }
       const data = await result.json();
-      allTickets = [...allTickets, ...data.tickets];
-
+      dispatch({
+        type: 'ADD_TICKETS',
+        payload: data.tickets,
+      });
+      await dispatch(setFiltredTickets());
+      dispatch({
+        type: 'SET_LOADING',
+        payload: false,
+      });
       stop = data.stop;
     } catch (error) {
       console.warn('Ошибка при получении билетов:', error.message);
       continue;
     }
   }
-  dispatch({
-    type: 'ADD_TICKETS',
-    payload: allTickets,
-  });
   dispatch(setAllTransfersTrue());
-  dispatch({
-    type: 'SET_LOADING',
-    payload: false,
-  });
 };
 
 // ДЕЛАЮ СОРТИРОВКУ ПО КНОПКАМ
