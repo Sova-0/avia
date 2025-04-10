@@ -11,6 +11,7 @@ function TicketsSide() {
   const dispatch = useDispatch();
   const ticketsData = useSelector((state) => state.tickets.filteredTickets);
   const loading = useSelector((state) => state.tickets.loading);
+  const tickets = useSelector((state) => state.tickets.tickets);
   const visibleTickets = useSelector((state) => state.tickets.visibleTickets);
   const firstFiveTickets = ticketsData.slice(0, visibleTickets);
   const handleShowMore = () => {
@@ -26,7 +27,7 @@ function TicketsSide() {
         </div>
       ) : (
         <div className={style['tickets-list']}>
-          {ticketsData.length === 0 ? (
+          {ticketsData.length === 0 && tickets.length > 0 ? (
             <div className={style['no-results']}>
               Рейсов, подходящих под заданные фильтры, не найдено
             </div>

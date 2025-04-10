@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSearchId, fetchTickets } from '../../store/ticketsReducer';
+import {
+  fetchSearchId,
+  fetchTickets,
+  setAllTransfersTrue,
+} from '../../store/ticketsReducer';
 import HeaderLogo from '../header-logo/Header-logo';
 import TransfersNumber from '../TransfersNumber/transfers-number';
 import TicketsSide from '../tickets-side/tickets-side';
@@ -20,6 +24,9 @@ function App() {
       dispatch(fetchTickets());
     }
   }, [searchId, dispatch]);
+  useEffect(() => {
+    dispatch(setAllTransfersTrue());
+  });
   return (
     <div className={styles.App}>
       <HeaderLogo />

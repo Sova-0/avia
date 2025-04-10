@@ -2,9 +2,14 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    cursor: pointer;
 }
 
 .transfersNumberItem label input {
     width: 20px;
     height: 20px;
+}
+
+.transfersNumberItem label:hover {
+    background-color: #F1FCFF;
 }

@@ -1,5 +1,3 @@
-import { debounce } from 'lodash';
-
 const initialState = {
   sortType: 'САМЫЙ ДЕШЕВЫЙ',
   transfers: {
@@ -11,7 +9,7 @@ const initialState = {
   },
   tickets: [],
   filteredTickets: [],
-  loading: false,
+  loading: true,
   visibleTickets: 5,
 };
 
@@ -59,6 +57,18 @@ function ticketsReducer(state = initialState, action) {
       return { ...state, loading: action.payload };
     case 'SET_VISIBLE_TICKETS':
       return { ...state, visibleTickets: state.visibleTickets + 5 };
+    case 'SET_ALL_TRANSFERS':
+      return {
+        ...state,
+        transfers: {
+          all: true,
+          'no-transfers': true,
+          'one-transfers': true,
+          'two-transfers': true,
+          'three-transfers': true,
+        },
+        visibleTickets: 5,
+      };
     default:
       return state;
   }
@@ -93,7 +103,7 @@ const fetchSearchId = () => async (dispatch) => {
 // ЗАПРОС НА ПОЛУЧЕНИЕ БИЛЕТОВ И отправка в РЕДУКТОР
 const fetchTickets = () => async (dispatch, getState) => {
   const searchId = getState().tickets.searchId;
-
+  let allTickets = [];
   let stop = false;
   while (!stop) {
     try {
@@ -106,17 +116,23 @@ const fetchTickets = () => async (dispatch, getState) => {
         throw new Error(`HTTP error, status: ${result.status}`);
       }
       const data = await result.json();
+      allTickets = [...allTickets, ...data.tickets];
 
-      dispatch({
-        type: 'ADD_TICKETS',
-        payload: data.tickets,
-      });
       stop = data.stop;
     } catch (error) {
       console.warn('Ошибка при получении билетов:', error.message);
       continue;
     }
   }
+  dispatch({
+    type: 'ADD_TICKETS',
+    payload: allTickets,
+  });
+  dispatch(setAllTransfersTrue());
+  dispatch({
+    type: 'SET_LOADING',
+    payload: false,
+  });
 };
 
 // ДЕЛАЮ СОРТИРОВКУ ПО КНОПКАМ
@@ -141,30 +157,15 @@ const sortTicketsButton = (tickets, sortType) => {
 };
 
 // ДЕЛАЮ СОРТИРОВКУ СНАЧАЛА ПО CHECKBOX А ПОТОМ ПО КНОПКАМ
-let debouncedFn = null;
 const setFiltredTickets = () => async (dispatch, getState) => {
+  const { tickets, transfers, sortType } = getState().tickets;
+  const filtered = filteredTransfers(tickets, transfers);
+  const sorted = sortTicketsButton(filtered, sortType);
+
   dispatch({
-    type: 'SET_LOADING',
-    payload: true,
+    type: 'SET_FILTERED_TICKETS',
+    payload: sorted,
   });
-  if (!debouncedFn) {
-    debouncedFn = debounce((dispatch, getState) => {
-      const { tickets, transfers, sortType } = getState().tickets;
-      const filtered = filteredTransfers(tickets, transfers);
-      const sorted = sortTicketsButton(filtered, sortType);
-
-      dispatch({
-        type: 'SET_FILTERED_TICKETS',
-        payload: sorted,
-      });
-
-      dispatch({
-        type: 'SET_LOADING',
-        payload: false,
-      });
-    }, 500);
-  }
-  debouncedFn(dispatch, getState);
 };
 
 // ПЕРЕКЛЮЧЕНИЕ КНОПОК САМЫЙ БЫСТРЫЙ, ДЕШЁВЫЙ, ОПТИМАЛЬНЫЙ
@@ -214,11 +215,19 @@ const setVisibleTickets = () => (dispatch) => {
   });
 };
 
+const setAllTransfersTrue = () => (dispatch) => {
+  dispatch({
+    type: 'SET_ALL_TRANSFERS',
+  });
+  dispatch(setFiltredTickets());
+};
+
 export {
   setSortType,
   toggleTransfersOption,
   fetchSearchId,
   fetchTickets,
   setVisibleTickets,
+  setAllTransfersTrue,
 };
 export default ticketsReducer;

@@ -9,32 +9,20 @@ function TicketsButton() {
   return (
     <div className={style['tickets-button']}>
       <button
-        className={style['button-cheap']}
+        className={`${style['button-cheap']} ${sortType === 'САМЫЙ ДЕШЕВЫЙ' ? style.active : ''}`}
         onClick={() => dispatch(setSortType('САМЫЙ ДЕШЕВЫЙ'))}
-        style={{
-          backgroundColor: sortType === 'САМЫЙ ДЕШЕВЫЙ' ? '#2196F3' : '#FFFFFF',
-          color: sortType === 'САМЫЙ ДЕШЕВЫЙ' ? '#FFFFFF' : '#4A4A4A',
-        }}
       >
         САМЫЙ ДЕШЕВЫЙ
       </button>
       <button
-        className={style['button-fast']}
+        className={`${style['button-fast']} ${sortType === 'САМЫЙ БЫСТРЫЙ' ? style.active : ''}`}
         onClick={() => dispatch(setSortType('САМЫЙ БЫСТРЫЙ'))}
-        style={{
-          backgroundColor: sortType === 'САМЫЙ БЫСТРЫЙ' ? '#2196F3' : '#FFFFFF',
-          color: sortType === 'САМЫЙ БЫСТРЫЙ' ? '#FFFFFF' : '#4A4A4A',
-        }}
       >
         САМЫЙ БЫСТРЫЙ
       </button>
       <button
-        className={style['button-optimal']}
+        className={`${style['button-optimal']} ${sortType === 'ОПТИМАЛЬНЫЙ' ? style.active : ''}`}
         onClick={() => dispatch(setSortType('ОПТИМАЛЬНЫЙ'))}
-        style={{
-          backgroundColor: sortType === 'ОПТИМАЛЬНЫЙ' ? '#2196F3' : '#FFFFFF',
-          color: sortType === 'ОПТИМАЛЬНЫЙ' ? '#FFFFFF' : '#4A4A4A',
-        }}
       >
         ОПТИМАЛЬНЫЙ
       </button>

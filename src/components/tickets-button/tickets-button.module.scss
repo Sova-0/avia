@@ -16,6 +16,18 @@
     font-weight: 600;
     box-sizing: border-box;
     height: 50px;
+    cursor: pointer;
+    &.active {
+        background-color: #2196F3;
+        color: #FFFFFF;
+        &:hover {
+            background-color: #2196F3;
+            color: #FFFFFF;
+        }
+    }
+    &:hover {
+        background-color: #F1FCFF;
+    }
 }
 
 @media all and (max-width: 768px) {
