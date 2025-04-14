@@ -10,6 +10,7 @@ const initialState = {
   tickets: [],
   filteredTickets: [],
   loading: true,
+  loadingAll: true,
   visibleTickets: 5,
 };
 
@@ -55,6 +56,8 @@ function ticketsReducer(state = initialState, action) {
     }
     case 'SET_LOADING':
       return { ...state, loading: action.payload };
+    case 'SET_LOADING_ALL':
+      return { ...state, loadingAll: action.payload };
     case 'SET_VISIBLE_TICKETS':
       return { ...state, visibleTickets: state.visibleTickets + 5 };
     case 'SET_ALL_TRANSFERS':
@@ -130,6 +133,10 @@ const fetchTickets = () => async (dispatch, getState) => {
       continue;
     }
   }
+  dispatch({
+    type: 'SET_LOADING_ALL',
+    payload: false,
+  });
 };
 
 // ДЕЛАЮ СОРТИРОВКУ ПО КНОПКАМ
