@@ -193,7 +193,7 @@ const filteredTransfers = (tickets, transfers) => {
   return tickets.filter((ticket) => {
     const stopsTo = ticket.segments[0].stops.length;
     const stopsFrom = ticket.segments[1].stops.length;
-    return filterArray.includes(stopsTo) && filterArray.includes(stopsFrom);
+    return filterArray.includes(stopsTo) || filterArray.includes(stopsFrom);
   });
 };
 

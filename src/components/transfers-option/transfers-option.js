@@ -15,6 +15,7 @@ function TransfersOption({ id, label }) {
           checked={isChecked}
           onChange={() => dispatch(toggleTransfersOption(id))}
         />
+        <span className={style.checkmark}></span>
         {label}
       </label>
     </li>

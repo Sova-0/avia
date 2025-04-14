@@ -1,15 +1,51 @@
+.transfersNumberItem {
+    display: block;
+    width: 100%;
+}
+
 .transfersNumberItem label {
     display: flex;
     gap: 10px;
     align-items: center;
     cursor: pointer;
+    padding: 10px 20px;
 }
 
 .transfersNumberItem label input {
-    width: 20px;
-    height: 20px;
+    display: none;
 }
 
-.transfersNumberItem label:hover {
+.transfersNumberItem label .checkmark {
+    border: 1px solid #9ABBCE;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.transfersNumberItem label input:checked + .checkmark {
+    border: 1px solid #2196F3;
+    background-color: white;
+}
+
+.transfersNumberItem label input:checked + .checkmark::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #2196F3;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.transfersNumberItem:hover {
+    background-color: #F1FCFF;
+}
+
+.transfersNumberItem label:hover .checkmark {
     background-color: #F1FCFF;
 }
